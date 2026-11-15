@@ -595,7 +595,7 @@ T= 103,900 + 199 * 25,299 = 5139,601 мс = 5,14 с.
 
 | № | Інструмент | Промпт (дослівно) | Що використано у звіті і що змінено самостійно |
 |---|---|---|---|
-| 1 | GPT |Чому тут помилка? root@se-201-10:/lab/work# timeout 8 tcpdump -ni eth0 -A -s0 -l 'host 10.53.0.80 and tcp port 443' > t1-https.txt &
+| 1 | GPT |Чому тут помилка? `root@se-201-10:/lab/work# timeout 8 tcpdump -ni eth0 -A -s0 -l 'host 10.53.0.80 and tcp port 443' > t1-https.txt &
 sleep 1; curl -s --cacert $STAND_CA https://vault.se-201-10.lab/; wait                  
 grep -a -c -E 'GET /|server: web' t1-https.txt                                          
 grep -a -o 'vault.se-201-10.lab' t1-https.txt | wc -l                 
@@ -609,7 +609,7 @@ curl: try 'curl --help' or 'curl --manual' for more information
 0 packets dropped by kernel
 [1]+  Exit 124                timeout 8 tcpdump -ni eth0 -A -s0 -l 'host 10.53.0.80 and tcp port 443' > t1-https.txt
 0
-0 |Зрозуміла що STAND_CA раніше була порожньою.
+0 `|Зрозуміла що STAND_CA раніше була порожньою.
 За допомогою GPT равильно встановила шлях до кореневого сертифіката.
 Файл /lab/pki/stand-root.crt існує і доступний |
 | 2 |GPT |Що таке розширення ALPN у TLS і як воно впливає на вибір версії HTTP?|Отримала пояснення, яке допомогло зрозуміти, чому для HTTPS було обрано HTTP/2|
