@@ -595,23 +595,7 @@ T= 103,900 + 199 * 25,299 = 5139,601 мс = 5,14 с.
 
 | № | Інструмент | Промпт (дослівно) | Що використано у звіті і що змінено самостійно |
 |---|---|---|---|
-| 1 | GPT |Чому тут помилка? `root@se-201-10:/lab/work# timeout 8 tcpdump -ni eth0 -A -s0 -l 'host 10.53.0.80 and tcp port 443' > t1-https.txt &
-sleep 1; curl -s --cacert $STAND_CA https://vault.se-201-10.lab/; wait                  
-grep -a -c -E 'GET /|server: web' t1-https.txt                                          
-grep -a -o 'vault.se-201-10.lab' t1-https.txt | wc -l                 
-[1] 124
-tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
-listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
-curl: (2) no URL specified
-curl: try 'curl --help' or 'curl --manual' for more information
-0 packets captured
-0 packets received by filter
-0 packets dropped by kernel
-[1]+  Exit 124                timeout 8 tcpdump -ni eth0 -A -s0 -l 'host 10.53.0.80 and tcp port 443' > t1-https.txt
-0
-0 `|Зрозуміла що STAND_CA раніше була порожньою.
-За допомогою GPT равильно встановила шлях до кореневого сертифіката.
-Файл /lab/pki/stand-root.crt існує і доступний |
+| 1 | GPT | Чому тут помилка?<br>`root@se-201-10:/lab/work# timeout 8 tcpdump -ni eth0 -A -s0 -l 'host 10.53.0.80 and tcp port 443' > t1-https.txt &`<br>`sleep 1; curl -s --cacert $STAND_CA https://vault.se-201-10.lab/; wait`<br>`grep -a -c -E 'GET /\|server: web' t1-https.txt`<br>`grep -a -o 'vault.se-201-10.lab' t1-https.txt \| wc -l`<br>`[1] 124`<br>`tcpdump: verbose output suppressed, use -v[v]... for full protocol decode`<br>`listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes`<br>`curl: (2) no URL specified`<br>`curl: try 'curl --help' or 'curl --manual' for more information`<br>`0 packets captured`<br>`0 packets received by filter`<br>`0 packets dropped by kernel`<br>`[1]+  Exit 124                timeout 8 tcpdump -ni eth0 -A -s0 -l 'host 10.53.0.80 and tcp port 443' > t1-https.txt`<br>`0`<br>`0` | Зрозуміла, що `STAND_CA` раніше була порожньою.<br>За допомогою GPT правильно встановила шлях до кореневого сертифіката.<br>Файл `/lab/pki/stand-root.crt` існує і доступний. |
 | 2 |GPT |Що таке розширення ALPN у TLS і як воно впливає на вибір версії HTTP?|Отримала пояснення, яке допомогло зрозуміти, чому для HTTPS було обрано HTTP/2|
 | 3 |GPT |Поясни, чим відрізняються серверний, проміжний і кореневий сертифікати та навіщо сервер повинен передавати проміжний сертифікат|Підтвердила своє розуміння побудови ланцюжка довіри сертифікатів; використала для аналізу помилки Verify return code: 21 у кроці 3.5 та успішної перевірки після додавання проміжного сертифіката у кроці 3.6|
 | 4 |GPT |Що означає параметр -k у команді curl -k ? | Завдяки отриманому поясненню мені вдалося самостійно сформулювати відповідь на запитання № 3 у завданні № 4|
